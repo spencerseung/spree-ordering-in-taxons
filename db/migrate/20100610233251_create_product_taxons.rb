@@ -9,10 +9,9 @@ class CreateProductTaxons < ActiveRecord::Migration
 
     # turn products_taxons into product_taxons with an initial order...
     #
-    ActiveRecord::Base.connection.
-     execute("select product_id, taxon_id from products_taxons order by taxon_id, product_id").
-     each do |res|
-      p = ProductTaxon.create(:product_id=>res[0].to_i, :taxon_id=>res[1].to_i)
+    
+    ActiveRecord::Base.connection.execute("select product_id, taxon_id from products_taxons order by taxon_id, product_id").each do |res|
+      p = ProductTaxon.create(:product_id=>res["product_id"].to_i, :taxon_id=>res["taxon_id"].to_i)
     end
   
    end
